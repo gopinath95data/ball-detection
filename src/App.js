@@ -7,6 +7,7 @@ import "./App.css";
 import { drawRect } from "./utilities";
 import Timer from "./components/timer";
 
+
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -16,6 +17,8 @@ function App() {
   const [isDetecting,setIsDetecting] = useState(false)
   const [showRemove,setShowRemove] = useState(false)
 
+  const reqObjects = ["cell phone"]
+
   let isUpdating = false
   let timestamp = 0
 
@@ -23,7 +26,7 @@ function App() {
 
 
   const checkObjects = (obj) =>{
-    let isObjectPresent = obj.filter(value => value.class == "cell phone").length>=1?true:false
+    let isObjectPresent = obj.filter(value => reqObjects.indexOf(value.class) > -1).length>=1?true:false
     return isObjectPresent
   }
 
@@ -45,6 +48,10 @@ function App() {
             objState = true
             setShowRemove(true)
             setIsDetecting(false)
+            beep()
+
+            await delay(2000)
+            break
           }
           await delay(100)
         }
@@ -59,7 +66,10 @@ function App() {
     }
 
   };
-  
+  function beep() {
+    var audio = new Audio('https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3')
+    audio.play()
+  }
 
   const detect = async (net) => {
     // Check data is available
