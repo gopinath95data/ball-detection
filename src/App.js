@@ -23,7 +23,7 @@ function App() {
 
 
   const checkObjects = (obj) =>{
-    let isObjectPresent = obj.filter(value => value.class == "ball"||value.class == "sports ball").length>=1?true:false
+    let isObjectPresent = obj.filter(value => value.class == "cell phone").length>=1?true:false
     return isObjectPresent
   }
 
@@ -45,7 +45,6 @@ function App() {
             objState = true
             setShowRemove(true)
             setIsDetecting(false)
-
           }
           await delay(100)
         }
